@@ -13,15 +13,17 @@ is.JSON =function(d){ try{JSON.parse(d);return true}catch(e){return false} }
 is.json=is.JSON;
 //element
 is.prop=function(o,p){for(const a in o){if(p === a) return true};return false}
-is.attr=function(o,a){return o.hasAttribute(a)}
 is.element=function(o){return !!(o && o.nodeType === 1)} 
+is.attr=function(o,a){return is.element(o)?o.hasAttribute(a):false}
 
 is.undefined =function(obj){return obj === void 0}
-is.equal = function(a, b){return eq(a, b)}
+//is.equal = function(a, b){return eq(a, b)}
 is.object = function(obj){var type = typeof obj;return type === 'function' || type === 'object' && !!obj}
 is.null = function(obj){return obj === null}
 is.array = Array.isArray || function(obj){return toString.call(obj) === '[object Array]'}
-is.arguments = function(obj){return toString.call(obj) === '[object Arguments]'||fn.has(obj, 'callee')}
+
+is.has = function(obj, key) {return obj != null && hasOwnProperty.call(obj, key)};
+is.arguments = function(obj){return toString.call(obj) === '[object Arguments]'||is.has(obj, 'callee')}
 is.function = function(obj){return toString.call(obj) === '[object Function]'}
 if(typeof /./ != 'function' && typeof Int8Array != 'object'){
 /*localize under safari 8, under ie 11*/
@@ -33,7 +35,7 @@ is.date = function(obj){return toString.call(obj) === '[object Date]'}
 is.regExp = function(obj){return toString.call(obj) === '[object RegExp]'}
 is.error = function(obj){return toString.call(obj) === '[object Error]'}
 is.finite = function(obj){return isFinite(obj) && !isNaN(parseFloat(obj))}
-is.NaN = function(obj){return _.isNumber(obj) && obj !== +obj}
+is.NaN = function(obj){return is.number(obj) && obj !== +obj}
 is.nan =is.NaN;
 is.boolean = function(obj){return obj === true || obj === false || toString.call(obj) === '[object Boolean]'}
 is.bool=is.boolean;
@@ -48,6 +50,11 @@ is.empty = function(obj) {
     return Object.keys(obj).length === 0;
 }
 
+/*
+let data='https://wwwwww.aaaaaa/xyz.js?ss'
+,log=(d)=>{console.log(d)}
+Object.keys(is).map((d)=>{return is[d](data)}).map(log)
+*/
 ```
 or is.is
 https://github.com/arasatasaygin/is.js
