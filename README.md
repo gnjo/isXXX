@@ -2,46 +2,49 @@
 javascript isXXX  knowledge
 
 ```
-let fn={};
+let is=(this)? this.is||{}: window.is||{}
+;
 //url
-fn.url=(d)=>{return /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/i.test(d)}
-fn.subLink=(d)=>{return /\#/.test(d)}
-fn.urlParam =(d)=>{return /\?./.test(d)}
+is.url=(d)=>{return /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/i.test(d)}
+is.subLink=(d)=>{return /\#/.test(d)}
+is.urlParam =(d)=>{return /\?./.test(d)}
 //
-fn.isJSON =function(d){ try{JSON.parse(d);return true}catch(e){return false} }
+is.JSON =function(d){ try{JSON.parse(d);return true}catch(e){return false} }
+is.json=is.JSON;
 //element
-fn.isProp=function(o,p){for(const a in o){if(p === a) return true};return false}
-fn.isAttr=function(o,a){return o.hasAttribute(a)}
-fn.isElement=function(o){return !!(o && o.nodeType === 1)} 
+is.prop=function(o,p){for(const a in o){if(p === a) return true};return false}
+is.attr=function(o,a){return o.hasAttribute(a)}
+is.element=function(o){return !!(o && o.nodeType === 1)} 
 
-fn.isUndefined =function(obj){return obj === void 0}
-fn.isEqual = function(a, b){return eq(a, b)}
-fn.isObject = function(obj){var type = typeof obj;return type === 'function' || type === 'object' && !!obj}
-fn.isNull = function(obj){return obj === null}
-fn.isArray = Array.isArray || function(obj){return toString.call(obj) === '[object Array]'}
-fn.isArguments = function(obj){return toString.call(obj) === '[object Arguments]'||fn.has(obj, 'callee')}
-fn.isFunction = function(obj){return toString.call(obj) === '[object Function]'}
+is.undefined =function(obj){return obj === void 0}
+is.equal = function(a, b){return eq(a, b)}
+is.object = function(obj){var type = typeof obj;return type === 'function' || type === 'object' && !!obj}
+is.null = function(obj){return obj === null}
+is.array = Array.isArray || function(obj){return toString.call(obj) === '[object Array]'}
+is.arguments = function(obj){return toString.call(obj) === '[object Arguments]'||fn.has(obj, 'callee')}
+is.function = function(obj){return toString.call(obj) === '[object Function]'}
 if(typeof /./ != 'function' && typeof Int8Array != 'object'){
 /*localize under safari 8, under ie 11*/
- fn.isFunction = function(obj){return typeof obj == 'function' || false}
+ is.function = function(obj){return typeof obj == 'function' || false}
 }
-fn.isString = function(obj){return toString.call(obj) === '[object String]'}
-fn.isNumber = function(obj){return toString.call(obj) === '[object Number]'}
-fn.isDate = function(obj){return toString.call(obj) === '[object Date]'}
-fn.isRegExp = function(obj){return toString.call(obj) === '[object RegExp]'}
-fn.isError = function(obj){return toString.call(obj) === '[object Error]'}
-fn.isFinite = function(obj){return isFinite(obj) && !isNaN(parseFloat(obj))}
-fn.isNaN = function(obj){return _.isNumber(obj) && obj !== +obj}
-fn.isBoolean = function(obj){return obj === true || obj === false || toString.call(obj) === '[object Boolean]'}
-
-fn.isArrayLike = function(collection) {
+is.string = function(obj){return toString.call(obj) === '[object String]'}
+is.number = function(obj){return toString.call(obj) === '[object Number]'}
+is.date = function(obj){return toString.call(obj) === '[object Date]'}
+is.regExp = function(obj){return toString.call(obj) === '[object RegExp]'}
+is.error = function(obj){return toString.call(obj) === '[object Error]'}
+is.finite = function(obj){return isFinite(obj) && !isNaN(parseFloat(obj))}
+is.NaN = function(obj){return _.isNumber(obj) && obj !== +obj}
+is.nan =is.NaN;
+is.boolean = function(obj){return obj === true || obj === false || toString.call(obj) === '[object Boolean]'}
+is.bool=is.boolean;
+is.arrayLike = function(collection) {
  var length = (collection == null)?void 0:collection['length'];
  return typeof length == 'number' && length >= 0 && length <= (Math.pow(2, 53) - 1);
 }
-fn.isCollection = fn.isArrayLike;
-fn.isEmpty = function(obj) {
+is.collection = is.arrayLike;
+is.empty = function(obj) {
     if (obj == null) return true;
-    if (fn.isArrayLike(obj) && (fn.isArray(obj) || fn.isString(obj) || fn.isArguments(obj))) return obj.length === 0;
+    if (is.arrayLike(obj) && (is.array(obj) || is.string(obj) || is.arguments(obj))) return obj.length === 0;
     return Object.keys(obj).length === 0;
 }
 
