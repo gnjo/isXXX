@@ -18,14 +18,21 @@ is.hiraganaOnly=(d)=>{return /^[\u3040-\u309f]+$/.test(d)}
 is.kanjiOnly=(d)=>{return /^[\u3005-\u3006\u30e0-\u9fcf]+$/.test(d)}
 is.kannjiOnly=is.kanjiOnly;
 is.nihongoOnly=(d)=>{return (is.katakanaOnly(d)|is.hiraganaOnly(d)|is.kanjiOnly(d))?true:false}
-
+//multibyte
+if(window){
+ if(window.atob){
+ is.utf8=(d)=>{try{window.atob(d);return true}catch(e){return false}}
+}}
+;
 //url
 is.url=(d)=>{return /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/i.test(d)}
 is.subLink=(d)=>{return /\#/.test(d)}
 is.urlParam =(d)=>{return /\?./.test(d)}
 //
-is.JSON =function(d){ try{JSON.parse(d);return true}catch(e){return false} }
-is.json=is.JSON;
+if(JSON){
+ is.jsonString =function(d){ try{JSON.parse(d);return true}catch(e){return false} }
+ is.JSONString=is.jsonString;
+}
 //element
 is.prop=function(o,p){for(const a in o){if(p === a) return true};return false}
 is.element=function(o){return !!(o && o.nodeType === 1)} 
@@ -65,13 +72,15 @@ is.empty = function(obj) {
     return Object.keys(obj).length === 0;
 }
 
+
 /*test code*/
 let log=(d)=>{console.log(d)}
 ,test=(d)=>{ const data='https://wwwwww.aaaaaa/xyz.js?ss';return d +':'+is[d](data)}
 ;
 
 Object.keys(is).map(test).map(log)
-//console.log( is.katakanaOnly('カタカナ') )
+console.log( is.katakanaOnly('カタカナ') )
+console.log(is.utf8('あいうえ...right正誤'))
 
 ```
 or is.is
