@@ -9,8 +9,8 @@ is.url=(d)=>{return /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(
 is.subLink=(d)=>{return /\#/.test(d)}
 is.urlParam =(d)=>{return /\?./.test(d)}
 //
-is.JSON =function(d){ try{JSON.parse(d);return true}catch(e){return false} }
-is.json=is.JSON;
+is.jsonString =function(d){ try{JSON.parse(d);return true}catch(e){return false} }
+is.JSONString=is.jsonString;
 //element
 is.prop=function(o,p){for(const a in o){if(p === a) return true};return false}
 is.element=function(o){return !!(o && o.nodeType === 1)} 
