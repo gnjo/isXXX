@@ -42,6 +42,7 @@ fn.isEmpty = function(obj) {
 
 ```
 or is.is
+https://github.com/arasatasaygin/is.js
 ```
 /*description by http://spacekey.info/blog/archives/835*/
 Type checks
