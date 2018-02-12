@@ -33,6 +33,7 @@ fn.isArrayLike = function(collection) {
  var length = (collection == null)?void 0:collection['length'];
  return typeof length == 'number' && length >= 0 && length <= (Math.pow(2, 53) - 1);
 }
+fn.isCollection = fn.isArrayLike;
 fn.isEmpty = function(obj) {
     if (obj == null) return true;
     if (fn.isArrayLike(obj) && (fn.isArray(obj) || fn.isString(obj) || fn.isArguments(obj))) return obj.length === 0;
