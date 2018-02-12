@@ -50,11 +50,12 @@ is.empty = function(obj) {
     return Object.keys(obj).length === 0;
 }
 
-/*
-let data='https://wwwwww.aaaaaa/xyz.js?ss'
-,log=(d)=>{console.log(d)}
-Object.keys(is).map((d)=>{return is[d](data)}).map(log)
-*/
+/*test code*/
+let log=(d)=>{console.log(d)}
+,test=(d)=>{ const data='https://wwwwww.aaaaaa/xyz.js?ss';return d +':'+is[d](data)}
+;
+Object.keys(is).map(test).map(log)
+
 ```
 or is.is
 https://github.com/arasatasaygin/is.js
