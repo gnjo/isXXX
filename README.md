@@ -29,6 +29,7 @@ is.url=(d)=>{return /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(
 is.subLink=(d)=>{return /\#/.test(d)}
 is.urlParam =(d)=>{return /\?./.test(d)}
 //
+is.fileString=(s=>!/[\\\/\:\*\?\"\<\>\|]/.test(s))
 if(JSON){
  is.jsonString =function(d){ try{JSON.parse(d);return true}catch(e){return false} }
  is.JSONString=is.jsonString;
