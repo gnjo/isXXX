@@ -4,6 +4,13 @@ javascript isXXX  knowledge
 ```
 let is=(this)? this.is||{}: window.is||{}
 ;
+is.dark=(d)=>{
+ //https://www.w3.org/TR/AERT/#color-contrast 
+ let c=d,f=(c)=>{return ((c[0] * 299 + c[1] * 587 + c[2] * 114) / 1000)}
+ if(c.charAt(5)=='') return; 
+ c=c.replace('#','').match(/.{2}/g).map(d=>parseInt(d,16))
+ return (f(c)<128)
+}
 /**/
 //nihongo
 //include one is true
