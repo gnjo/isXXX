@@ -81,7 +81,10 @@ is.empty = function(obj) {
     if (is.arrayLike(obj) && (is.array(obj) || is.string(obj) || is.arguments(obj))) return obj.length === 0;
     return Object.keys(obj).length === 0;
 }
-
+is.promise=function isPromise(obj) {
+  return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
+}
+is.Promise=is.promise
 
 /*test code*/
 let log=(d)=>{console.log(d)}
