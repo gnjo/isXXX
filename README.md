@@ -28,6 +28,14 @@ is.kanji=(d)=>{return /[\u3005-\u3006\u30e0-\u9fcf]/.test(d)}
 is.kannji=is.kanji;
 is.nihongo=(d)=>{return (is.katakana(d)|is.hiragana(d)|is.kanji(d))}
 //hard check
+is.sijigoOnly=(d)=>{
+let data=`これ,ここ,こっち,こちら,こいつ,こなた,この,こう,こんな
+それ,そこ,そっち,そちら,そいつ,そなた,その,そう,そんな
+あれ,あそこ,あっち,あちら,あいつ,あなた,あの,ああ,あんな
+どれ,どこ,どっち,どちら,どいつ,どなた,どの,どう,どんな`
+let re=new RegExp(data.trim().split(/,|\n/).map(d=>'^'+d).join('|'))
+ return re.test(d)
+}
 is.katakanaOnly=(d)=>{return /^[\u30a0-\u30ff]+$/.test(d)}
 is.hiraganaOnly=(d)=>{return /^[\u3040-\u309f]+$/.test(d)}
 is.kanjiOnly=(d)=>{return /^[\u3005-\u3006\u30e0-\u9fcf]+$/.test(d)}
