@@ -14,6 +14,14 @@ is.dark=(d)=>{
 /**/
 //nihongo
 //include one is true
+is.sijigo=(d)=>{
+let data=`これ,ここ,こっち,こちら,こいつ,こなた,この,こう,こんな
+それ,そこ,そっち,そちら,そいつ,そなた,その,そう,そんな
+あれ,あそこ,あっち,あちら,あいつ,あなた,あの,ああ,あんな
+どれ,どこ,どっち,どちら,どいつ,どなた,どの,どう,どんな`
+let re=new RegExp(data.trim().split(/,|\n/).join('|'))
+ return re.test(d)
+}
 is.katakana=(d)=>{return /[\u30a0-\u30ff]/.test(d)}
 is.hiragana=(d)=>{return /[\u3040-\u309f]/.test(d)}
 is.kanji=(d)=>{return /[\u3005-\u3006\u30e0-\u9fcf]/.test(d)}
