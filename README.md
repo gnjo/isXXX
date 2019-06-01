@@ -102,6 +102,8 @@ is.promise=function isPromise(obj) {
 }
 is.Promise=is.promise
 
+is.in=(a,v,b)=>{return (Math.min(a,b)<=v&&v<=Math.max(a,b)) }
+
 /*test code*/
 let log=(d)=>{console.log(d)}
 ,test=(d)=>{ const data='https://wwwwww.aaaaaa/xyz.js?ss';return d +':'+is[d](data)}
