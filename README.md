@@ -85,6 +85,15 @@ is.error = function(obj){return toString.call(obj) === '[object Error]'}
 is.finite = function(obj){return isFinite(obj) && !isNaN(parseFloat(obj))}
 is.NaN = function(obj){return is.number(obj) && obj !== +obj}
 is.nan =is.NaN;
+
+is.numberable=(str,flg)=>{
+ // aaa>false, 14>true, 14.444>true, -14.444>true, ofcause 0 is true.
+ //flg null is near check. ex) 14px is true
+ //flg is is hard check. ex) 14px is false
+ if(!flg)return !is.nan(parseFloat(str))
+ if(flg)return /^[0-9\-\.]+$/.test(str) //null is false
+}
+
 is.boolean = function(obj){return obj === true || obj === false || toString.call(obj) === '[object Boolean]'}
 is.bool=is.boolean;
 is.arrayLike = function(collection) {
